@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Exit Ticket | M1T1L1 - 8.10A</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { carnegie: '#005587', accent: '#ffb703', danger: '#e63946' } }
+            }
+        }
+    </script>
+    <style>
+        /* Anti-Copy Styles */
+        body {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+        ::selection {
+            background: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 py-10">
+    <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 md:p-10 w-full max-w-4xl" id="main-container">
+        
+        <!-- Tab Switch Warning Overlay -->
+        <div id="warning-overlay" class="hidden absolute inset-0 z-50 bg-danger/95 rounded-xl flex items-center justify-center p-8 flex-col text-center text-white backdrop-blur-sm">
+            <i class="fa-solid fa-triangle-exclamation text-7xl mb-4"></i>
+            <h2 class="text-3xl font-bold mb-2">Security Warning</h2>
+            <p class="text-xl max-w-lg mb-6">You navigated away from the assessment. This violation has been recorded.</p>
+            <button onclick="dismissWarning()" class="bg-white text-danger hover:bg-gray-100 font-bold py-3 px-8 rounded-lg shadow-lg text-lg transition duration-200">
+                Return to Assessment
+            </button>
+        </div>
+
+        <div id="assessment-content">
+            <div class="border-b border-gray-200 pb-4 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Exit Ticket: TEKS 8.10A</h2>
+                    <p class="text-gray-500 mt-1">Complete the questions below. Your results will be sent directly to your teacher.</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex gap-4">
+                    <div class="bg-blue-50 p-3 rounded border border-blue-100">
+                        <label class="block text-sm font-bold text-carnegie mb-1">Select Teacher:</label>
+                        <select id="teacher-name" class="border-2 border-carnegie rounded px-3 py-2 w-40 focus:ring-2 focus:ring-blue-300 focus:outline-none font-medium cursor-pointer" required>
+                            <option value="" disabled selected>Choose...</option>
+                            <option value="Teacher A">Teacher A</option>
+                            <option value="Teacher B">Teacher B</option>
+                            <option value="Teacher C">Teacher C</option>
+                            <option value="Teacher D">Teacher D</option>
+                        </select>
+                    </div>
+                    <div class="bg-blue-50 p-3 rounded border border-blue-100">
+                        <label class="block text-sm font-bold text-carnegie mb-1">Student ID:</label>
+                        <input type="text" id="student-id" class="border-2 border-carnegie rounded px-3 py-2 w-32 focus:ring-2 focus:ring-blue-300 focus:outline-none font-medium" placeholder="123456" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8" id="questions-wrapper">
+                <!-- Question 1 -->
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-carnegie text-white w-8 h-8 inline-flex items-center justify-center rounded-full mr-3">1</span>
+                        <h3 class="font-bold text-lg text-gray-800">Determine whether each transformation preserves or changes the attributes of a figure.</h3>
+                    </div>
+                    <div class="overflow-x-auto pl-11">
+                        <table class="w-full text-left border-collapse bg-white shadow-sm rounded-lg">
+                            <thead>
+                                <tr class="bg-gray-100 text-gray-700 text-sm border-b">
+                                    <th class="p-3 font-bold border-r">Transformation</th>
+                                    <th class="p-3 font-bold text-center border-r">Preserves Congruence</th>
+                                    <th class="p-3 font-bold text-center">Changes Orientation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b">
+                                    <td class="p-3 border-r font-medium text-gray-800">Translation</td>
+                                    <td class="p-3 text-center border-r"><input type="checkbox" id="q1-trans-cong" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                    <td class="p-3 text-center"><input type="checkbox" id="q1-trans-ori" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-3 border-r font-medium text-gray-800">Reflection</td>
+                                    <td class="p-3 text-center border-r"><input type="checkbox" id="q1-ref-cong" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                    <td class="p-3 text-center"><input type="checkbox" id="q1-ref-ori" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-3 border-r font-medium text-gray-800">Rotation</td>
+                                    <td class="p-3 text-center border-r"><input type="checkbox" id="q1-rot-cong" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                    <td class="p-3 text-center"><input type="checkbox" id="q1-rot-ori" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-r font-medium text-gray-800">Dilation</td>
+                                    <td class="p-3 text-center border-r"><input type="checkbox" id="q1-dil-cong" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                    <td class="p-3 text-center"><input type="checkbox" id="q1-dil-ori" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-carnegie text-white w-8 h-8 inline-flex items-center justify-center rounded-full mr-3">2</span>
+                        <h3 class="font-bold text-lg text-gray-800">Inline Choice</h3>
+                    </div>
+                    <div class="pl-11">
+                        <p class="text-gray-800 text-lg">If Triangle ABC is mapped to Triangle A'B'C' such that the vertices face the opposite direction, the transformation used must be a 
+                            <select id="q2-dropdown" class="border-2 border-carnegie bg-white px-3 py-1 font-bold text-carnegie rounded ml-2 focus:outline-none focus:ring-2 focus:ring-blue-300 cursor-pointer">
+                                <option value="" disabled selected>Select...</option>
+                                <option value="translation">Translation</option>
+                                <option value="reflection">Reflection</option>
+                                <option value="rotation">Rotation</option>
+                                <option value="dilation">Dilation</option>
+                            </select>.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-carnegie text-white w-8 h-8 inline-flex items-center justify-center rounded-full mr-3">3</span>
+                        <h3 class="font-bold text-lg text-gray-800">Select exactly TWO correct statements.</h3>
+                    </div>
+                    <div class="pl-11">
+                        <h4 class="font-medium text-gray-800 mb-3">Which statements are true when a figure is translated (slid) 5 units down?</h4>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                                <input type="checkbox" id="q3-a" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                                <span class="text-gray-700">The resulting figure is completely congruent to the original.</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                                <input type="checkbox" id="q3-b" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                                <span class="text-gray-700">The orientation of the shape will change.</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                                <input type="checkbox" id="q3-c" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                                <span class="text-gray-700">The side lengths and angle measures will stay exactly the same.</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                                <input type="checkbox" id="q3-d" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                                <span class="text-gray-700">The area of the shape will increase.</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center pt-6">
+                    <button id="submit-btn" onclick="submitAssessment()" class="bg-carnegie hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-lg shadow-lg text-lg transition duration-200 w-full md:w-auto cursor-pointer">
+                        <i class="fa-solid fa-paper-plane mr-2"></i> Submit Assessment
+                    </button>
+                    <p id="error-msg" class="mt-4 font-bold text-red-600 hidden"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzqxWIf5xUD2nGM_cjgLrYXWVoxJras3_rurfY_bdM1g4kA4aibUsjdsVlDr3LHBj8n7Q/exec";
+        const LESSON_ID = "M1T1L1 - 8.10A";
+        
+        let cheatWarnings = 0;
+        let isSubmitted = false;
+
+        // Anti-Copy JS Tripwires
+        document.addEventListener('contextmenu', event => event.preventDefault()); 
+        
+        document.addEventListener('copy', event => {
+            event.preventDefault();
+            alert('Copying is disabled for this assessment.');
+        });
+        
+        document.addEventListener('paste', event => {
+            event.preventDefault();
+        });
+
+        // Tab-Switching Security Tripwire
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden && !isSubmitted) {
+                cheatWarnings++;
+                document.getElementById('warning-overlay').classList.remove('hidden');
+                document.getElementById('warning-overlay').classList.add('flex');
+            }
+        });
+
+        function dismissWarning() {
+            document.getElementById('warning-overlay').classList.add('hidden');
+            document.getElementById('warning-overlay').classList.remove('flex');
+        }
+
+        // Anti-Multiple Submission Check
+        document.addEventListener('DOMContentLoaded', () => {
+            if(localStorage.getItem('submitted_' + LESSON_ID) === 'true') {
+                isSubmitted = true;
+                lockScreen();
+            }
+        });
+
+        function lockScreen() {
+            document.getElementById('assessment-content').innerHTML = 
+                '<div class="text-center py-16"><i class="fa-solid fa-circle-check text-green-500 text-6xl mb-4"></i><h2 class="text-2xl font-bold text-gray-800 mb-2">Assessment Completed</h2><p class="text-gray-600">You have already submitted this exit ticket. Your score has been recorded.</p></div>';
+        }
+
+        function submitAssessment() {
+            const teacherName = document.getElementById('teacher-name').value;
+            const studentId = document.getElementById('student-id').value.trim();
+            const errMsg = document.getElementById('error-msg');
+            
+            if(!teacherName || !studentId) {
+                errMsg.innerText = "Please select your teacher and enter your Student ID.";
+                errMsg.classList.remove('hidden');
+                return;
+            }
+
+            errMsg.classList.add('hidden');
+            document.getElementById('submit-btn').innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Submitting...';
+            document.getElementById('submit-btn').disabled = true;
+
+            // Simple Auto-Grading & Tiering Logic
+            let score = 0;
+            let tier = "T1 - Mastery";
+
+            const q1DilOri = document.getElementById('q1-dil-ori').checked;
+            const q1RefOri = document.getElementById('q1-ref-ori').checked;
+            if(document.getElementById('q1-trans-cong').checked && document.getElementById('q1-rot-cong').checked) score++;
+            
+            const q2Val = document.getElementById('q2-dropdown').value;
+            if(q2Val === 'reflection') score++;
+
+            const q3A = document.getElementById('q3-a').checked;
+            const q3C = document.getElementById('q3-c').checked;
+            const q3D = document.getElementById('q3-d').checked;
+            if(q3A && q3C && !document.getElementById('q3-b').checked && !q3D) score++;
+
+            if (q1DilOri || q3D) {
+                tier = "T3 - Foundational Breakdown";
+            } else if (!q1RefOri || q2Val !== 'reflection') {
+                tier = "T2 - Orientation Bias"; 
+            }
+
+            if(cheatWarnings > 0) {
+                tier = tier + " (Tab Switch Warnings: " + cheatWarnings + ")";
+            }
+
+            const payload = {
+                teacherName: teacherName,
+                lessonName: LESSON_ID,
+                studentId: studentId,
+                score: score + "/3",
+                tier: tier
+            };
+
+            fetch(WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors', 
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                isSubmitted = true;
+                localStorage.setItem('submitted_' + LESSON_ID, 'true');
+                lockScreen();
+            })
+            .catch((error) => {
+                errMsg.innerText = "There was an error connecting to the server. Please show your teacher.";
+                errMsg.classList.remove('hidden');
+                document.getElementById('submit-btn').innerHTML = 'Try Again';
+                document.getElementById('submit-btn').disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>
