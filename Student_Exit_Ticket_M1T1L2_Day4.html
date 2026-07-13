@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Exit Ticket | M1T1L2 (Day 4)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { carnegie: '#005587', accent: '#ffb703', danger: '#e63946' } } }
+        }
+    </script>
+    <style>
+        body { -webkit-user-select: none; -ms-user-select: none; user-select: none; }
+        ::selection { background: transparent; }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 py-10">
+    <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 md:p-10 w-full max-w-4xl" id="main-container">
+        
+        <div id="warning-overlay" class="hidden absolute inset-0 z-50 bg-danger/95 rounded-xl flex items-center justify-center p-8 flex-col text-center text-white backdrop-blur-sm">
+            <i class="fa-solid fa-triangle-exclamation text-7xl mb-4"></i>
+            <h2 class="text-3xl font-bold mb-2">Security Warning</h2>
+            <p class="text-xl max-w-lg mb-6">You navigated away from the assessment. This violation has been recorded.</p>
+            <button onclick="dismissWarning()" class="bg-white text-danger hover:bg-gray-100 font-bold py-3 px-8 rounded-lg shadow-lg text-lg transition duration-200 cursor-pointer">
+                Return to Assessment
+            </button>
+        </div>
+
+        <div id="assessment-content">
+            <div class="border-b border-gray-200 pb-4 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Exit Ticket: TEKS 8.10A, 8.10B</h2>
+                    <p class="text-gray-500 mt-1">Complete the questions below. Your results will be sent to your teacher.</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex gap-4">
+                    <div class="bg-blue-50 p-3 rounded border border-blue-100">
+                        <label class="block text-sm font-bold text-carnegie mb-1">Select Teacher:</label>
+                        <select id="teacher-name" class="border-2 border-carnegie rounded px-3 py-2 w-40 focus:ring-2 focus:outline-none font-medium cursor-pointer" required>
+                            <option value="" disabled selected>Choose...</option>
+                            <option value="Teacher A">Teacher A</option>
+                            <option value="Teacher B">Teacher B</option>
+                            <option value="Teacher C">Teacher C</option>
+                            <option value="Teacher D">Teacher D</option>
+                        </select>
+                    </div>
+                    <div class="bg-blue-50 p-3 rounded border border-blue-100">
+                        <label class="block text-sm font-bold text-carnegie mb-1">Student ID:</label>
+                        <input type="text" id="student-id" class="border-2 border-carnegie rounded px-3 py-2 w-32 focus:ring-2 focus:outline-none font-medium" placeholder="123456" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8" id="questions-wrapper">
+                
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-carnegie text-white w-8 h-8 inline-flex items-center justify-center rounded-full mr-3 shrink-0">1</span>
+                        <h3 class="font-bold text-lg text-gray-800">A student performs a sequence of three rigid motions on a rectangle: a translation, then a reflection, then a rotation. Which statement is true about the final image?</h3>
+                    </div>
+                    <div class="pl-11 space-y-2">
+                        <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                            <input type="radio" name="q1" value="a" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                            <span class="text-gray-700">The final image is no longer congruent because it was reflected.</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                            <input type="radio" name="q1" value="b" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                            <span class="text-gray-700 font-bold">The final image is completely congruent to the original rectangle.</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                            <input type="radio" name="q1" value="c" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                            <span class="text-gray-700">The final image has a different area but the same perimeter.</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                            <input type="radio" name="q1" value="d" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                            <span class="text-gray-700">The final image must have the exact same orientation as the original.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-carnegie text-white w-8 h-8 inline-flex items-center justify-center rounded-full mr-3 shrink-0">2</span>
+                        <h3 class="font-bold text-lg text-gray-800">Match Table Grid: Determine if each transformation preserves or changes the orientation of a figure.</h3>
+                    </div>
+                    <div class="pl-11">
+                        <table class="w-full text-left border-collapse bg-white shadow-sm rounded-lg text-sm">
+                            <thead>
+                                <tr class="bg-gray-100 text-gray-700 border-b">
+                                    <th class="p-3 font-bold border-r">Transformation</th>
+                                    <th class="p-3 font-bold text-center border-r">Preserves Orientation</th>
+                                    <th class="p-3 font-bold text-center">Changes Orientation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b">
+                                    <td class="p-3 border-r font-medium">Translation</td>
+                                    <td class="p-3 text-center border-r"><input type="checkbox" id="q2-trans-pre" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                    <td class="p-3 text-center"><input type="checkbox" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-3 border-r font-medium">Reflection</td>
+                                    <td class="p-3 text-center border-r"><input type="checkbox" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                    <td class="p-3 text-center"><input type="checkbox" id="q2-ref-change" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-3 border-r font-medium">Rotation</td>
+                                    <td class="p-3 text-center border-r"><input type="checkbox" id="q2-rot-pre" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                    <td class="p-3 text-center"><input type="checkbox" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-carnegie text-white w-8 h-8 inline-flex items-center justify-center rounded-full mr-3 shrink-0">3</span>
+                        <h3 class="font-bold text-lg text-gray-800">Which transformation maps Figure A (triangle pointing up) onto Figure C (triangle pointing down)?</h3>
+                    </div>
+                    <div class="pl-11 space-y-2">
+                        <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                            <input type="radio" name="q3" value="a" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                            <span class="text-gray-700">A 90&deg; rotation clockwise</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                            <input type="radio" name="q3" value="b" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                            <span class="text-gray-700">A reflection over a vertical line</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                            <input type="radio" name="q3" value="c" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                            <span class="text-gray-700">A translation up</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                            <input type="radio" name="q3" value="d" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                            <span class="text-gray-700 font-bold">A 180&deg; rotation</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="text-center pt-6">
+                    <button id="submit-btn" onclick="submitAssessment()" class="bg-carnegie hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-lg shadow-lg text-lg transition duration-200 w-full md:w-auto cursor-pointer">
+                        <i class="fa-solid fa-paper-plane mr-2"></i> Submit Assessment
+                    </button>
+                    <p id="error-msg" class="mt-4 font-bold text-red-600 hidden"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzqxWIf5xUD2nGM_cjgLrYXWVoxJras3_rurfY_bdM1g4kA4aibUsjdsVlDr3LHBj8n7Q/exec";
+        const LESSON_ID = "M1T1L2 (Day 4) - 8.10A, 8.10B";
+        
+        let cheatWarnings = 0;
+        let isSubmitted = false;
+
+        document.addEventListener('contextmenu', event => event.preventDefault()); 
+        document.addEventListener('copy', event => { event.preventDefault(); alert('Copying is disabled.'); });
+        document.addEventListener('paste', event => { event.preventDefault(); });
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden && !isSubmitted) {
+                cheatWarnings++;
+                document.getElementById('warning-overlay').classList.remove('hidden');
+                document.getElementById('warning-overlay').classList.add('flex');
+            }
+        });
+
+        function dismissWarning() {
+            document.getElementById('warning-overlay').classList.add('hidden');
+            document.getElementById('warning-overlay').classList.remove('flex');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if(localStorage.getItem('submitted_' + LESSON_ID) === 'true') {
+                isSubmitted = true;
+                lockScreen();
+            }
+        });
+
+        function lockScreen() {
+            document.getElementById('assessment-content').innerHTML = 
+                '<div class="text-center py-16"><i class="fa-solid fa-circle-check text-green-500 text-6xl mb-4"></i><h2 class="text-2xl font-bold text-gray-800 mb-2">Assessment Completed</h2><p class="text-gray-600">Your score has been recorded.</p></div>';
+        }
+
+        function submitAssessment() {
+            const teacherName = document.getElementById('teacher-name').value;
+            const studentId = document.getElementById('student-id').value.trim();
+            const errMsg = document.getElementById('error-msg');
+            
+            if(!teacherName || !studentId) {
+                errMsg.innerText = "Please select your teacher and enter your Student ID.";
+                errMsg.classList.remove('hidden');
+                return;
+            }
+
+            errMsg.classList.add('hidden');
+            document.getElementById('submit-btn').innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Submitting...';
+            document.getElementById('submit-btn').disabled = true;
+
+            let score = 0;
+            let tier = "T1 - Mastery";
+
+            let q1 = document.querySelector('input[name="q1"]:checked');
+            if(q1 && q1.value === 'b') score++;
+
+            const q2Checks = [
+                document.getElementById('q2-trans-pre').checked,
+                document.getElementById('q2-ref-change').checked,
+                document.getElementById('q2-rot-pre').checked
+            ];
+            const q2Correct = q2Checks.every(val => val === true);
+            if(q2Correct) score++;
+
+            let q3 = document.querySelector('input[name="q3"]:checked');
+            if(q3 && q3.value === 'd') score++;
+
+            if (!q1 || q1.value !== 'b') {
+                tier = "T3 - Foundational Breakdown";
+            } else if (!q2Correct || (q3 && q3.value !== 'd')) {
+                tier = "T2 - Orientation Errors"; 
+            }
+
+            if(cheatWarnings > 0) {
+                tier = tier + " (Tab Switch Warnings: " + cheatWarnings + ")";
+            }
+
+            const payload = {
+                teacherName: teacherName,
+                lessonName: LESSON_ID,
+                studentId: studentId,
+                score: score + "/3",
+                tier: tier
+            };
+
+            fetch(WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                isSubmitted = true;
+                localStorage.setItem('submitted_' + LESSON_ID, 'true');
+                lockScreen();
+            })
+            .catch((error) => {
+                errMsg.innerText = "There was an error connecting to the server. Please show your teacher.";
+                errMsg.classList.remove('hidden');
+                document.getElementById('submit-btn').innerHTML = 'Try Again';
+                document.getElementById('submit-btn').disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>
