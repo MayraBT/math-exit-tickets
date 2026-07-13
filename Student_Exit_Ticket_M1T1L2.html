@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Exit Ticket | M1T1L2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { carnegie: '#005587', accent: '#ffb703', danger: '#e63946' } } }
+        }
+    </script>
+    <style>
+        body { -webkit-user-select: none; -ms-user-select: none; user-select: none; }
+        ::selection { background: transparent; }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 py-10">
+    <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 md:p-10 w-full max-w-4xl" id="main-container">
+        
+        <div id="warning-overlay" class="hidden absolute inset-0 z-50 bg-danger/95 rounded-xl flex items-center justify-center p-8 flex-col text-center text-white backdrop-blur-sm">
+            <i class="fa-solid fa-triangle-exclamation text-7xl mb-4"></i>
+            <h2 class="text-3xl font-bold mb-2">Security Warning</h2>
+            <p class="text-xl max-w-lg mb-6">You navigated away from the assessment. This violation has been recorded.</p>
+            <button onclick="dismissWarning()" class="bg-white text-danger hover:bg-gray-100 font-bold py-3 px-8 rounded-lg shadow-lg text-lg transition duration-200 cursor-pointer">
+                Return to Assessment
+            </button>
+        </div>
+
+        <div id="assessment-content">
+            <div class="border-b border-gray-200 pb-4 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Exit Ticket: TEKS 8.10A, 8.10B</h2>
+                    <p class="text-gray-500 mt-1">Complete the questions below. Your results will be sent to your teacher.</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex gap-4">
+                    <div class="bg-blue-50 p-3 rounded border border-blue-100">
+                        <label class="block text-sm font-bold text-carnegie mb-1">Select Teacher:</label>
+                        <select id="teacher-name" class="border-2 border-carnegie rounded px-3 py-2 w-40 focus:ring-2 focus:outline-none font-medium cursor-pointer" required>
+                            <option value="" disabled selected>Choose...</option>
+                            <option value="Teacher A">Teacher A</option>
+                            <option value="Teacher B">Teacher B</option>
+                            <option value="Teacher C">Teacher C</option>
+                            <option value="Teacher D">Teacher D</option>
+                        </select>
+                    </div>
+                    <div class="bg-blue-50 p-3 rounded border border-blue-100">
+                        <label class="block text-sm font-bold text-carnegie mb-1">Student ID:</label>
+                        <input type="text" id="student-id" class="border-2 border-carnegie rounded px-3 py-2 w-32 focus:ring-2 focus:outline-none font-medium" placeholder="123456" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8" id="questions-wrapper">
+                
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-carnegie text-white w-8 h-8 inline-flex items-center justify-center rounded-full mr-3 shrink-0">1</span>
+                        <h3 class="font-bold text-lg text-gray-800">Match Table Grid</h3>
+                    </div>
+                    <div class="pl-11">
+                        <p class="text-gray-700 mb-4 font-medium">Based on Trapezoid WXYZ and its translation Trapezoid W'X'Y'Z', which characteristics of a figure remain the same after a translation?</p>
+                        
+                        <table class="w-full text-left border-collapse bg-white shadow-sm rounded-lg text-sm">
+                            <thead>
+                                <tr class="bg-gray-100 text-gray-700 border-b">
+                                    <th class="p-3 font-bold border-r">Characteristic</th>
+                                    <th class="p-3 font-bold text-center border-r">Remains the Same</th>
+                                    <th class="p-3 font-bold text-center">Does Not Remain the Same</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b">
+                                    <td class="p-3 border-r font-medium">Size</td>
+                                    <td class="p-3 text-center border-r"><input type="checkbox" id="q1-size-same" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                    <td class="p-3 text-center"><input type="checkbox" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-3 border-r font-medium">Shape</td>
+                                    <td class="p-3 text-center border-r"><input type="checkbox" id="q1-shape-same" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                    <td class="p-3 text-center"><input type="checkbox" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-3 border-r font-medium">Location</td>
+                                    <td class="p-3 text-center border-r"><input type="checkbox" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                    <td class="p-3 text-center"><input type="checkbox" id="q1-loc-diff" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-3 border-r font-medium">Orientation</td>
+                                    <td class="p-3 text-center border-r"><input type="checkbox" id="q1-ori-same" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                    <td class="p-3 text-center"><input type="checkbox" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-3 border-r font-medium">Parallel Lines</td>
+                                    <td class="p-3 text-center border-r"><input type="checkbox" id="q1-par-same" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                    <td class="p-3 text-center"><input type="checkbox" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-3 border-r font-medium">Angle Measures</td>
+                                    <td class="p-3 text-center border-r"><input type="checkbox" id="q1-ang-same" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                    <td class="p-3 text-center"><input type="checkbox" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                </tr>
+                                 <tr>
+                                    <td class="p-3 border-r font-medium">Side Lengths</td>
+                                    <td class="p-3 text-center border-r"><input type="checkbox" id="q1-side-same" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                    <td class="p-3 text-center"><input type="checkbox" class="w-5 h-5 text-carnegie cursor-pointer"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-carnegie text-white w-8 h-8 inline-flex items-center justify-center rounded-full mr-3 shrink-0">2</span>
+                        <h3 class="font-bold text-lg text-gray-800">When you reflect an arrow pointing to the right across a vertical line, which direction will it be pointing?</h3>
+                    </div>
+                    <div class="pl-11 space-y-2">
+                        <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                            <input type="radio" name="q2" value="a" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                            <span class="text-gray-700">The same direction</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                            <input type="radio" name="q2" value="b" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                            <span class="text-gray-700 font-bold">To the left</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                            <input type="radio" name="q2" value="c" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                            <span class="text-gray-700">Upward</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                            <input type="radio" name="q2" value="d" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                            <span class="text-gray-700">Downward</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-carnegie text-white w-8 h-8 inline-flex items-center justify-center rounded-full mr-3 shrink-0">3</span>
+                        <h3 class="font-bold text-lg text-gray-800">Which transformation maps a triangle pointing up onto a triangle pointing down?</h3>
+                    </div>
+                    <div class="pl-11 space-y-2">
+                        <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                            <input type="radio" name="q3" value="a" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                            <span class="text-gray-700">A 90&deg; rotation clockwise</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                            <input type="radio" name="q3" value="b" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                            <span class="text-gray-700">A reflection over a vertical line</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                            <input type="radio" name="q3" value="c" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                            <span class="text-gray-700">A translation up</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 bg-white rounded cursor-pointer hover:bg-blue-50 transition">
+                            <input type="radio" name="q3" value="d" class="w-5 h-5 text-carnegie mr-3 cursor-pointer">
+                            <span class="text-gray-700 font-bold">A 180&deg; rotation</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="text-center pt-6">
+                    <button id="submit-btn" onclick="submitAssessment()" class="bg-carnegie hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-lg shadow-lg text-lg transition duration-200 w-full md:w-auto cursor-pointer">
+                        <i class="fa-solid fa-paper-plane mr-2"></i> Submit Assessment
+                    </button>
+                    <p id="error-msg" class="mt-4 font-bold text-red-600 hidden"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzqxWIf5xUD2nGM_cjgLrYXWVoxJras3_rurfY_bdM1g4kA4aibUsjdsVlDr3LHBj8n7Q/exec";
+        const LESSON_ID = "M1T1L2 - 8.10A, 8.10B";
+        
+        let cheatWarnings = 0;
+        let isSubmitted = false;
+
+        document.addEventListener('contextmenu', event => event.preventDefault()); 
+        document.addEventListener('copy', event => { event.preventDefault(); alert('Copying is disabled.'); });
+        document.addEventListener('paste', event => { event.preventDefault(); });
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden && !isSubmitted) {
+                cheatWarnings++;
+                document.getElementById('warning-overlay').classList.remove('hidden');
+                document.getElementById('warning-overlay').classList.add('flex');
+            }
+        });
+
+        function dismissWarning() {
+            document.getElementById('warning-overlay').classList.add('hidden');
+            document.getElementById('warning-overlay').classList.remove('flex');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if(localStorage.getItem('submitted_' + LESSON_ID) === 'true') {
+                isSubmitted = true;
+                lockScreen();
+            }
+        });
+
+        function lockScreen() {
+            document.getElementById('assessment-content').innerHTML = 
+                '<div class="text-center py-16"><i class="fa-solid fa-circle-check text-green-500 text-6xl mb-4"></i><h2 class="text-2xl font-bold text-gray-800 mb-2">Assessment Completed</h2><p class="text-gray-600">Your score has been recorded.</p></div>';
+        }
+
+        function submitAssessment() {
+            const teacherName = document.getElementById('teacher-name').value;
+            const studentId = document.getElementById('student-id').value.trim();
+            const errMsg = document.getElementById('error-msg');
+            
+            if(!teacherName || !studentId) {
+                errMsg.innerText = "Please select your teacher and enter your Student ID.";
+                errMsg.classList.remove('hidden');
+                return;
+            }
+
+            errMsg.classList.add('hidden');
+            document.getElementById('submit-btn').innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Submitting...';
+            document.getElementById('submit-btn').disabled = true;
+
+            let score = 0;
+            let tier = "T1 - Mastery";
+
+            const q1Checks = [
+                document.getElementById('q1-size-same').checked,
+                document.getElementById('q1-shape-same').checked,
+                document.getElementById('q1-loc-diff').checked,
+                document.getElementById('q1-ori-same').checked,
+                document.getElementById('q1-par-same').checked,
+                document.getElementById('q1-ang-same').checked,
+                document.getElementById('q1-side-same').checked
+            ];
+            const q1Correct = q1Checks.every(val => val === true);
+            if(q1Correct) score++;
+            
+            let q2 = document.querySelector('input[name="q2"]:checked');
+            if(q2 && q2.value === 'b') score++;
+
+            let q3 = document.querySelector('input[name="q3"]:checked');
+            if(q3 && q3.value === 'd') score++;
+
+            if (!q1Correct) {
+                tier = "T3 - Foundational Breakdown";
+            } else if ((q2 && q2.value !== 'b') || (q3 && q3.value !== 'd')) {
+                tier = "T2 - Orientation/Visualization Errors"; 
+            }
+
+            if(cheatWarnings > 0) {
+                tier = tier + " (Tab Switch Warnings: " + cheatWarnings + ")";
+            }
+
+            const payload = {
+                teacherName: teacherName,
+                lessonName: LESSON_ID,
+                studentId: studentId,
+                score: score + "/3",
+                tier: tier
+            };
+
+            fetch(WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                isSubmitted = true;
+                localStorage.setItem('submitted_' + LESSON_ID, 'true');
+                lockScreen();
+            })
+            .catch((error) => {
+                errMsg.innerText = "There was an error connecting to the server. Please show your teacher.";
+                errMsg.classList.remove('hidden');
+                document.getElementById('submit-btn').innerHTML = 'Try Again';
+                document.getElementById('submit-btn').disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>
